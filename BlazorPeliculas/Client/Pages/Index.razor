@@ -1,17 +1,26 @@
 ﻿@page "/"
 
-  <div>
-    <ListadoPeliculas Peliculas="ObtenerPeliculas()" />
-  </div>
+<div>
+  <ListadoPeliculas Peliculas="Peliculas" />
+</div>
+<hr /> 
+<button @onclick="AgregarPelicula">Añadir película</button>
 
 @code {
-  private List<Pelicula> ObtenerPeliculas()
+  private List<Pelicula> Peliculas;
+
+  protected override void OnInitialized()
   {
-    return new List<Pelicula>
-    {
+    Peliculas = new List<Pelicula>
+  {
       new Pelicula() { Titulo = "Spiderman - Lejos de casa", Lanzamiento = new DateTime(2019, 6, 20) },
       new Pelicula() { Titulo = "Vaiana", Lanzamiento = new DateTime(2017, 8, 12) },
       new Pelicula() { Titulo = "Origen", Lanzamiento = new DateTime(2010, 5, 15) }
     };
+  }
+
+  void AgregarPelicula()
+  {
+    Peliculas.Add(new Pelicula() { Titulo = "Nueva película", Lanzamiento = DateTime.Today });
   }
 }
