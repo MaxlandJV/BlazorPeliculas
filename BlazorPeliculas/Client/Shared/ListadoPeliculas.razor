@@ -1,0 +1,20 @@
+﻿<h3>Películas</h3>
+
+<input type="checkbox" @bind="MostrarBotones" />
+
+<ListadoGenerico Listado="Peliculas">
+  <HayRegistros Context="pelicula">
+    <PeliculaIndividual Pelicula="pelicula" MostrarBotones="MostrarBotones" EliminarPelicula="EliminarPelicula" />
+  </HayRegistros>
+</ListadoGenerico>
+
+@code {
+  [Parameter] public List<Pelicula> Peliculas { get; set; }
+  bool MostrarBotones = true;
+
+  void EliminarPelicula(Pelicula pelicula)
+  {
+    Peliculas.Remove(pelicula);
+    Console.WriteLine($"Se ha eliminado la película {pelicula.Titulo}");
+  }
+}
