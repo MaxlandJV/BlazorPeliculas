@@ -13,13 +13,19 @@ namespace BlazorPeliculas.Client.Pages
     protected int currentCount = 0;
     static int currentCountStatic = 0;
 
-    protected async Task IncrementCount()
+    [JSInvokable]
+    public async Task IncrementCount()
     {
       currentCount++;
       Singleton.Valor = currentCount;
       Transient.Valor = currentCount;
       currentCountStatic++;
       await JS.InvokeVoidAsync("pruebaPuntoNetStatic");
+    }
+
+    protected async Task IncrementCountJavaScript()
+    {
+      await JS.InvokeVoidAsync("pruebaPuntoNETInstancia", DotNetObjectReference.Create(this));
     }
 
     [JSInvokable]

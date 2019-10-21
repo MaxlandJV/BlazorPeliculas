@@ -4,3 +4,7 @@ function pruebaPuntoNetStatic() {
       console.log(`Conteo desde Javascript ${resultado}`);
     });
 }
+
+function pruebaPuntoNETInstancia(dotnetHelper) {
+  dotnetHelper.invokeMethodAsync("IncrementCount");
+}
