@@ -1,15 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="sidebar">
-    <NavMenu />
+  <NavMenu />
 </div>
 
 <div class="main">
-    <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">Acerca de...</a>
-    </div>
+  <div class="top-row px-4">
+    <a href="http://blazor.net" target="_blank" class="ml-md-auto">Acerca de...</a>
+  </div>
 
-    <div class="content px-4">
-        @Body
-    </div>
+  <div class="content px-4">
+    <CascadingValue Value="@appState">
+      @Body
+    </CascadingValue>
+  </div>
 </div>
+
+@code {
+  AppState appState = new AppState();
+
+  public class AppState
+  {
+    public string Color { get; set; } = "lightblue";
+    public string Size { get; set; } = "24px";
+  }
+}

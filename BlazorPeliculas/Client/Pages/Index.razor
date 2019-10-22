@@ -1,5 +1,9 @@
 ﻿@page "/"
+@inject ServicioSingleton singleton
 @inject IRepositorio repositorio
+@using static BlazorPeliculas.Client.Shared.MainLayout;
+
+<p style="color: @appState.Color">El valor del singleton es: @singleton.Valor</p>
 
 <div>
   <ListadoPeliculas Peliculas="Peliculas" />
@@ -8,6 +12,8 @@
 <button @onclick="AgregarPelicula">Añadir película</button>
 
 @code {
+  [CascadingParameter] protected AppState appState { get; set; }
+
   private List<Pelicula> Peliculas;
 
   protected override void OnInitialized()
