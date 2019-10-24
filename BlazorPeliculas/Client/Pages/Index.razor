@@ -1,28 +1,16 @@
 ﻿@page "/"
-@inject ServicioSingleton singleton
 @inject IRepositorio repositorio
-@using static BlazorPeliculas.Client.Shared.MainLayout;
-
-<p style="color: @appState.Color">El valor del singleton es: @singleton.Valor</p>
 
 <div>
+  <h3>Películas</h3>
   <ListadoPeliculas Peliculas="Peliculas" />
 </div>
-<hr />
-<button @onclick="AgregarPelicula">Añadir película</button>
 
 @code {
-  [CascadingParameter] protected AppState appState { get; set; }
-
   private List<Pelicula> Peliculas;
 
   protected override void OnInitialized()
   {
     Peliculas = repositorio.ObtenerPeliculas();
-  }
-
-  void AgregarPelicula()
-  {
-    Peliculas.Add(new Pelicula() { Titulo = "Nueva película", Lanzamiento = DateTime.Today });
   }
 }

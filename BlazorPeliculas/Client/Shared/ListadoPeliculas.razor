@@ -1,55 +1,25 @@
-﻿@inject IJSRuntime js 
+﻿@inject IJSRuntime js
 
-<h3>Películas</h3>
-
-<input type="checkbox" @bind="MostrarBotones" />
-
-<ListadoGenerico Listado="Peliculas">
-  <HayRegistros Context="pelicula">
-    <PeliculaIndividual Pelicula="pelicula" MostrarBotones="MostrarBotones" EliminarPelicula="EliminarPelicula" />
-  </HayRegistros>
-</ListadoGenerico>
-
-<Confirmacion @ref="confirmacion" onConfirm="EliminarPeliculaConfirmacion" onCancel="onCancelConfirmacion">
-  <div>¿Desea borrar la película?</div>
-</Confirmacion>
+<div style="display: flex; flex-wrap: wrap; align-items: center;">
+  <ListadoGenerico Listado="Peliculas">
+    <HayRegistros Context="pelicula">
+      <PeliculaIndividual Pelicula="pelicula" EliminarPelicula="EliminarPelicula" />
+    </HayRegistros>
+  </ListadoGenerico>
+</div>
 
 @code {
-  Confirmacion confirmacion;
-  Pelicula peliculaABorrar;
-
   [Parameter] public List<Pelicula> Peliculas { get; set; }
 
-  bool MostrarBotones = true;
-
-  // Confirmación mediante referencia
-  void EliminarPelicula(Pelicula pelicula)
-  {
-    confirmacion.Mostrar();
-    peliculaABorrar = pelicula;
-  }
-
   // Confirmación mediante JavaScript
-  //async Task EliminarPelicula(Pelicula pelicula)
-  //{
-  //  var confirmado = await js.Confirm($"¿Desea borrar la película {pelicula.Titulo}?");
-
-  //  if (confirmado) {
-  //    Peliculas.Remove(pelicula);
-  //    Console.WriteLine($"Se ha eliminado la película {pelicula.Titulo}");
-  //  }
-  //}
-
-  void EliminarPeliculaConfirmacion()
+  async Task EliminarPelicula(Pelicula pelicula)
   {
-    Peliculas.Remove(peliculaABorrar);
-    confirmacion.Ocultar();
-    peliculaABorrar = null;
-  }
+    var confirmar = await js.Confirm($"¿Desea borrar la película {pelicula.Titulo}?");
 
-  void onCancelConfirmacion()
-  {
-    confirmacion.Ocultar();
-    peliculaABorrar = null;
+    if (confirmar)
+    {
+      Peliculas.Remove(pelicula);
+      Console.WriteLine($"Se ha eliminado la película {pelicula.Titulo}");
+    }
   }
 }
