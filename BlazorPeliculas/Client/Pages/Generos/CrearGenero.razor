@@ -2,17 +2,7 @@
 
 <h3>Crear genero</h3>
 
-<EditForm Model="Genero" OnValidSubmit="Crear">
-  <DataAnnotationsValidator />
-  <div class="form-group">
-    <label>Nombre:</label>
-    <div>
-      <InputText class="form-control" @bind-Value="@Genero.Nombre" />
-      <ValidationMessage For="@(() => Genero.Nombre)" />
-    </div>
-  </div>
-  <button class="btn btn-success" type="submit">Guardar cambios</button>
-</EditForm>
+<FormularioGenero OnValidSubmit="Crear" Genero="Genero" />
 
 @code {
   private Genero Genero = new Genero();
