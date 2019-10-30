@@ -2,6 +2,24 @@
 
 <h3>Editar persona</h3>
 
+<FormularioPersona OnValidSubmit="Editar" Persona="Persona"></FormularioPersona>
+
 @code {
   [Parameter] public int PersonaId { get; set; }
+  private Persona Persona;
+
+  protected override void OnInitialized()
+  {
+    Persona = new Persona()
+    {
+      Id = PersonaId,
+      Nombre = "Jordi",
+      FechaNacimiento = DateTime.Parse("1968-05-28 00:00:00")
+    };
+  }
+
+  private void Editar()
+  {
+    Console.WriteLine("Editando persona");
+  }
 }
