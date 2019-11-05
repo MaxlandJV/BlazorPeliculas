@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlazorPeliculas.Shared.Entidades
@@ -12,5 +13,6 @@ namespace BlazorPeliculas.Shared.Entidades
     public string Foto { get; set; }
     [Required(ErrorMessage = "El campo {0} es obligatorio")]
     public DateTime? FechaNacimiento { get; set; }
+    public List<PeliculaActor> PeliculaActor { get; set; }
   }
 }
